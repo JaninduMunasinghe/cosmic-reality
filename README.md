@@ -20,6 +20,8 @@
 
 ```
 /project-root
+├── models
+├── sounds
 ├── index.html
 ├── index.js
 ├── server.js (Server with Express running)
