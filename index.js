@@ -4,8 +4,26 @@ window.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".model-btn");
   const sound = document.querySelector("#roverSound");
   const marker = document.querySelector("a-marker");
+  const rotateLeftBtn = document.getElementById("rotateLeft");
+  const rotateRightBtn = document.getElementById("rotateRight");
+
+  let currentRotation = 0;
 
   let currentModel = "Perseverance.glb";
+
+  function applyRotation() {
+    modelEntity.setAttribute("rotation", `0 ${currentRotation} 0`);
+  }
+
+  rotateLeftBtn.addEventListener("click", () => {
+    currentRotation -= 15; // rotate left
+    applyRotation();
+  });
+
+  rotateRightBtn.addEventListener("click", () => {
+    currentRotation += 15; // rotate right
+    applyRotation();
+  });
 
   // Map each model to its sound effect
   const modelSoundMap = {
@@ -17,9 +35,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function loadModel(fileName) {
     currentModel = fileName;
+    currentRotation = 0; // reset rotation on new model
 
     // Load the 3D model
     modelEntity.setAttribute("gltf-model", `models/${fileName}`);
+    modelEntity.setAttribute("rotation", `0 ${currentRotation} 0`);
     modelEntity.setAttribute("animation-mixer", ""); // reset animation
 
     // Update the sound src
